@@ -12,12 +12,10 @@ const UploadsPage = () => {
 
             try {
 
-                // Fetch the user document
                 const userDocRef = doc(db, 'users', currentUser.email);
                 const userDocSnapshot = await getDoc(userDocRef);
 
                 if (userDocSnapshot.exists()) {
-                    // Extract the 'uploads' array from the document data
                     const userUploads = userDocSnapshot.data().uploads || [];
                     setUploads(userUploads);
                 } else {
@@ -32,12 +30,12 @@ const UploadsPage = () => {
     }, []);
 
     return (
-        <div>
+        <div className='uploadimages'>
             <h1>Your Uploads</h1>
             <ul>
                 {uploads.map((upload, index) => (
                     <li key={index}>
-                        <strong>File Name:</strong> {upload.fileName}<br />
+                        <img src={require(`../uploads/${upload.fileName}`)} alt="Uploaded Image" />
                         <strong>Result:</strong> {upload.result}<br />
                         <strong>Timestamp:</strong> {upload.timestamp && upload.timestamp.toDate().toString()}
                     </li>
