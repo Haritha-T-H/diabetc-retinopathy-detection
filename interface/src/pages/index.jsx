@@ -43,7 +43,6 @@ const Home = () => {
             console.log(data.result.data['result'])
             setResult(data.result.data['result'])
 
-
             console.log('writing')
             const userDocRef = doc(db, "users", currentUser.email);
 

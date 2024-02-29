@@ -24,8 +24,9 @@ const Header = () => {
                     <h5>Home</h5>
                 </li></Link>
 
-                <li> {currentUser ? currentUser.email : ''}
-                </li>
+                <Link to={'/history'}>  <li>
+                    <h5>History</h5>
+                </li></Link>
 
                 <li onClick={onLogout}>Logout</li>
             </ul>

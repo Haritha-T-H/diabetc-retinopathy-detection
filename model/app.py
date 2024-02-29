@@ -1,10 +1,13 @@
-from flask import Flask,  jsonify, request
+from flask import Flask, jsonify, request
 import os
 from flask_cors import CORS
 from keras.preprocessing import image
 import numpy as np
 from tensorflow.keras.models import load_model
 from keras.applications.resnet50 import preprocess_input
+from shutil import copyfile
+from werkzeug.utils import secure_filename
+
 
 app = Flask(__name__)
 CORS(app)
@@ -14,7 +17,7 @@ UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 
 model = load_model("resnet50_image_classifier.h5")
-classes = ['mild','moderate','no diabetic retinopathy','proliferative','severe']
+classes = ["mild", "moderate", "no diabetic retinopathy", "proliferative", "severe"]
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
@@ -35,9 +38,17 @@ def upload_file():
 
     if file and allowed_file(file.filename):
         filename = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
+        storagefilename = os.path.join(
+            "../interface\\src\\uploads",
+            file.filename,
+        )
+
         file.save(filename)
+        copyfile(filename, storagefilename)
+
         print(f"Image received and saved: {filename}")
-        img = image.load_img(filename, target_size=(180, 180)) 
+        print(f"Image received and saved: {storagefilename}")
+        img = image.load_img(filename, target_size=(180, 180))
         x = image.img_to_array(img)
         x = preprocess_input(x)
         x = np.expand_dims(x, axis=0)
