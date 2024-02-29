@@ -2,10 +2,15 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import '../home.css'
 import { doSignOut } from '../firebase/auth'
+import { useAuth } from '../context'
 
 const Header = () => {
     const navigate = useNavigate()
+    const { currentUser } = useAuth()
 
+    console.log("xxx")
+    console.log(currentUser)
+    console.log("xxx")
     const onLogout = async (e) => {
         e.preventDefault()
         await doSignOut();
@@ -19,7 +24,9 @@ const Header = () => {
                     <h5>Home</h5>
                 </li></Link>
 
-                <li>History</li>
+                <li> {currentUser ? currentUser.email : ''}
+                </li>
+
                 <li onClick={onLogout}>Logout</li>
             </ul>
         </div>

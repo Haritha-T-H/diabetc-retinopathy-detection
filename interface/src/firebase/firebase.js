@@ -4,12 +4,12 @@ import { setDoc, doc, getFirestore } from 'firebase/firestore';
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCgW5eYdWAQ9JaESPMOAT3rkWMVUubbNBw",
-    authDomain: "ageandgender-5c888.firebaseapp.com",
-    projectId: "ageandgender-5c888",
-    storageBucket: "ageandgender-5c888.appspot.com",
-    messagingSenderId: "910886902173",
-    appId: "1:910886902173:web:63a1f8a45e9c3373347774"
+    apiKey: "AIzaSyBe83048K3vkHYR8eKK0G5f33wrewfSPvg",
+    authDomain: "diabetic-retinopathy-ea621.firebaseapp.com",
+    projectId: "diabetic-retinopathy-ea621",
+    storageBucket: "diabetic-retinopathy-ea621.appspot.com",
+    messagingSenderId: "9133973613",
+    appId: "1:9133973613:web:0daac7166e9023b03f9f64"
 };
 
 const app = initializeApp(firebaseConfig);

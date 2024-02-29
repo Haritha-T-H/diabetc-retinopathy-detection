@@ -4,10 +4,16 @@ import { Link } from "react-router-dom";
 import eye from '../assets/raw.png'
 import { useAuth } from '../context';
 import { Navigate } from 'react-router-dom';
+import { setDoc, doc, serverTimestamp, arrayUnion, Timestamp } from 'firebase/firestore';
+import { db } from "../firebase/firebase";
 
 const Home = () => {
     const { userLoggedIn } = useAuth()
+    const { currentUser } = useAuth()
 
+    console.log("userLoggedIn")
+    console.log(currentUser)
+    console.log("userLoggedIn")
     const [file, setFile] = useState(null);
     const [preview, setPreview] = useState(null);
     const [result, setResult] = useState(null);
@@ -37,6 +43,18 @@ const Home = () => {
             console.log(data.result.data['result'])
             setResult(data.result.data['result'])
 
+
+            console.log('writing')
+            const userDocRef = doc(db, "users", currentUser.email);
+
+            await setDoc(userDocRef, {
+                uploads: arrayUnion({
+                    fileName: file.name,
+                    result: data.result.data['result'],
+                    timestamp: Timestamp.now(),
+                }),
+            }, { merge: true });
+            console.log('Upload details stored in Firestore');
         }
     };
 
