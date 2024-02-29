@@ -11,6 +11,6 @@ interface/.env.production.local
 interface/npm-debug.log*
 interface/yarn-debug.log*
 interface/yarn-error.log*
-model/resnet50_image_classifier/
+model/resnet50_image_classifier.h5
 model/venv/
 model/__pycache__/

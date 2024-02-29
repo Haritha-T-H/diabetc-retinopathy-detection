@@ -29,32 +29,32 @@ const Register = () => {
         <>
             {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
 
-            <div class='pagecontainer'>
-                <div class="bgcontainer">
-                    <div class="box">
-                        <div class="formcontainer">
+            <div className='pagecontainer'>
+                <div className="bgcontainer">
+                    <div className="box">
+                        <div className="formcontainer">
                             <form onSubmit={onSubmit}>
-                                <div class="mb-3">
-                                    <input placeholder='email' type="email" class="form-control" id="email" name="email" value={email} onChange={(e) => { setEmail(e.target.value) }}
+                                <div className="mb-3">
+                                    <input placeholder='email' type="email" className="form-control" id="email" name="email" value={email} onChange={(e) => { setEmail(e.target.value) }}
                                         required />
                                 </div>
 
-                                <div class="mb-3">
-                                    <input placeholder='username' type="text" class="form-control" id="email" name="email" value={name} onChange={(e) => { setName(e.target.value) }}
+                                <div className="mb-3">
+                                    <input placeholder='username' type="text" className="form-control" id="email" name="email" value={name} onChange={(e) => { setName(e.target.value) }}
                                         required />
                                 </div>
 
-                                <div class="mb-3">
+                                <div className="mb-3">
 
-                                    <input placeholder='password' type="password" class="form-control" id="password" onChange={(e) => { setPassword(e.target.value) }}
+                                    <input placeholder='password' type="password" className="form-control" id="password" onChange={(e) => { setPassword(e.target.value) }}
                                         name="password" required />
                                 </div>
 
-                                <div class='links'>
-                                    <button type="submit" class="btn btn-primary">
+                                <div className='links'>
+                                    <button type="submit" className="btn btn-primary">
                                         signup
                                     </button>
-                                    <Link to={'/login'}>   <button class="btn btn-success">
+                                    <Link to={'/login'}>   <button className="btn btn-success">
                                         Already have an account?😁
                                     </button></Link>
 
@@ -63,10 +63,10 @@ const Register = () => {
                         </div>
 
                     </div>
-                    <div class="image">
-                        <img src={eye} alt="" srcset="" />
+                    <div className="image">
+                        <img src={eye} alt="" />
                     </div>
-                    <div class="black"></div>
+                    <div className="black"></div>
 
                 </div>
 

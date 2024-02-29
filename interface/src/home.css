@@ -49,8 +49,7 @@ body {
 form {
     display: flex;
     justify-content: space-around;
-    align-items: center;
-
+    padding-top: 30px;
 }
 
 div.mb-3 {
@@ -69,8 +68,8 @@ div.mb-3 {
     background-color: black;
     border: 2px black solid;
     border-radius: 30px;
-    padding: 15px;
-    margin: 15px;
+    padding: 5px;
+    margin: 5px;
 }
 
 .elements {
@@ -97,6 +96,7 @@ ul {
     flex: 1;
     justify-content: space-between;
     font-weight: bold;
+    cursor: pointer;
 }
 
 
@@ -149,7 +149,18 @@ button.upload {
     position: absolute;
     bottom: 15%;
     z-index: 999;
-    left: 47%;
+    left: 37%;
+    border: none;
+    padding: 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+button.another {
+    position: absolute;
+    bottom: 15%;
+    z-index: 999;
+    left: 57%;
     border: none;
     padding: 20px;
     border-radius: 20px;

@@ -16,47 +16,53 @@ const Login = () => {
     const onSubmit = async (e) => {
         e.preventDefault()
         if (!isSigningIn) {
-            setIsSigningIn(true)
-            await doSignInWithEmailAndPassword(email, password)
+            try {
+                await doSignInWithEmailAndPassword(email, password);
+            } catch (error) {
+                console.error("Sign-in error:", error.message);
+                alert("Sign-in unsuccessful. Please check your email and password.");
+            } finally {
+                setIsSigningIn(false);
+            }
         }
     }
 
     return (
 
-        <div class='pagecontainer'>
+        <div className='pagecontainer'>
             {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
 
-            <div class="bgcontainer">
-                <div class="box">
-                    <div class="formcontainer">
+            <div className="bgcontainer">
+                <div className="box">
+                    <div className="formcontainer">
                         <form onSubmit={onSubmit}>
-                            <div class="mb-3">
-                                <input placeholder='email' type="email" class="form-control" id="email" name="email"
+                            <div className="mb-3">
+                                <input placeholder='email' type="email" className="form-control" id="email" name="email"
                                     required onChange={(e) => { setEmail(e.target.value) }} />
                             </div>
 
-                            <div class="mb-3">
+                            <div className="mb-3">
 
-                                <input placeholder='password' type="password" class="form-control" id="password"
+                                <input placeholder='password' type="password" className="form-control" id="password"
                                     name="password" required onChange={(e) => { setPassword(e.target.value) }} />
                             </div>
 
-                            <div class='links'>
-                                <button type="submit" class="btn btn-primary">
+                            <div className='links'>
+                                <button type="submit" className="btn btn-primary">
                                     Login😁
                                 </button>
-                                <h4>New here?  <Link to={'/register'}> <button class="btn btn-success">
-                                    Dont have an account?😁
-                                </button></Link></h4>
+                                <Link to={'/register'}> <button className="btn btn-success">
+                                    Create an account?😁
+                                </button></Link>
                             </div>
                         </form>
                     </div>
 
                 </div>
-                <div class="image">
-                    <img src={eye} alt="" srcset="" />
+                <div className="image">
+                    <img src={eye} alt="" />
                 </div>
-                <div class="black"></div>
+                <div className="black"></div>
 
             </div>
 

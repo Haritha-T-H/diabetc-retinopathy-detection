@@ -2,12 +2,15 @@ import { useCallback, useRef, useState, useEffect } from "react";
 import '../home.css';
 import { Link } from "react-router-dom";
 import eye from '../assets/raw.png'
+import { useAuth } from '../context';
+import { Navigate } from 'react-router-dom';
 
 const Home = () => {
+    const { userLoggedIn } = useAuth()
+
     const [file, setFile] = useState(null);
-    const [age, setAge] = useState(null);
-    const [gender, setGender] = useState(null);
     const [preview, setPreview] = useState(null);
+    const [result, setResult] = useState(null);
 
     useEffect(() => {
         if (file) {
@@ -30,19 +33,20 @@ const Home = () => {
                 body: imageData,
             });
             console.log('send')
-
             const data = await response.json();
-            setAge(data.result.data['age']);
-            setGender(data.result.data['gender']);
+            console.log(data.result.data['result'])
+            setResult(data.result.data['result'])
+
         }
     };
 
     return (
-        <div class='pagecontainer'>
+        <div className='pagecontainer'>
+            {!userLoggedIn && (<Navigate to={'/login'} replace={true} />)}
 
-            <div class="bgcontainer">
-                <div class="box">
-                    <div class="formcontainer">
+            <div className="bgcontainer">
+                <div className="box">
+                    <div className="formcontainer">
                         {preview && <img src={preview} alt="Preview" />}
                         {!preview && <label for="fileInput" id="dropArea">
                             <input type="file" id="fileInput" accept="image/*" hidden name="image" onChange={(e) => {
@@ -53,21 +57,34 @@ const Home = () => {
                             </div>
                         </label>
                         }
-                        {preview && <button class="upload" onClick={handleUpload}>
-                            Predict 👉
+                        {preview && <button className="upload" onClick={handleUpload}>
+                            Predict 🔍
                         </button>
                         }
-                        {!preview && <button class="upload">
+                        {result && <button className="upload">
+                            Image indicates {result}
+                        </button>
+                        }
+
+                        {!preview && <button className="upload">
                             👈 click inside the box
                         </button>
                         }
+                        {result && <button className="another" onClick={
+                            handleReload
+                        }>
+                            check another 🔃
+                        </button>
+                        }
+
+
                     </div>
 
                 </div>
-                <div class="image">
-                    <img src={eye} alt="" srcset="" />
+                <div className="image">
+                    <img src={eye} alt="" />
                 </div>
-                <div class="black"></div>
+                <div className="black"></div>
 
             </div>
 

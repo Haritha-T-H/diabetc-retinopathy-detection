@@ -11,7 +11,7 @@ CORS(app)
 
 
 UPLOAD_FOLDER = "uploads"
-ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg", "gif"}
+ALLOWED_EXTENSIONS = {"png", "jpg", "jpeg"}
 
 model = load_model("resnet50_image_classifier.h5")
 classes = ['mild','moderate','no diabetic retinopathy','proliferative','severe']
