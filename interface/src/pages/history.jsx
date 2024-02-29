@@ -35,7 +35,7 @@ const UploadsPage = () => {
             <ul>
                 {uploads.map((upload, index) => (
                     <li key={index}>
-                        <img src={require(`../uploads/${upload.fileName}`)} alt="Uploaded Image" />
+                        <img src={upload.imageURL} alt="Uploaded Image" />
                         <strong>Result:</strong> {upload.result}<br />
                         <strong>Timestamp:</strong> {upload.timestamp && upload.timestamp.toDate().toString()}
                     </li>

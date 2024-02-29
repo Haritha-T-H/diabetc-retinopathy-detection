@@ -23,41 +23,42 @@ const Home = () => {
     const [imageurl, setImageurl] = useState(null);
     const [percentage, setPercentage] = useState(null);
 
-    useEffect(() => {
-        const uploadFile = () => {
-            const img_unique_id = uuid();
-            const storageRef = ref(storage, img_unique_id);
+    const uploadFile = () => {
+        const img_unique_id = uuid();
+        const storageRef = ref(storage, img_unique_id);
 
-            const uploadTask = uploadBytesResumable(storageRef, file);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-            uploadTask.on(
-                "state_changed",
-                (snapshot) => {
-                    const progress =
-                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                    console.log("Upload is " + progress + "% done");
-                    setPercentage(progress);
-                    switch (snapshot.state) {
-                        case "paused":
-                            console.log("Upload is paused");
-                            break;
-                        case "running":
-                            console.log("Upload is running");
-                            break;
-                    }
-                },
-                (error) => {
-                    console.log(error);
-                },
-                () => {
-                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                        setImageurl(downloadURL);
-                    });
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const progress =
+                    (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log("Upload is " + progress + "% done");
+                setPercentage(progress);
+                switch (snapshot.state) {
+                    case "paused":
+                        console.log("Upload is paused");
+                        break;
+                    case "running":
+                        console.log("Upload is running");
+                        break;
                 }
-            );
-        };
-        file && uploadFile();
-    }, [file]);
+            },
+            (error) => {
+                console.log(error);
+            },
+            () => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    setImageurl(downloadURL);
+                    console.log('completed')
+                    console.log(downloadURL)
+                    console.log('completed')
+                    handleUpload(downloadURL);
+                });
+            }
+        );
+    };
 
     useEffect(() => {
         if (file) {
@@ -70,8 +71,7 @@ const Home = () => {
         window.location.reload();
     };
 
-    const handleUpload = async (e) => {
-        e.preventDefault();
+    const handleUpload = async (downloadURL) => {
 
         if (file != null) {
             console.log('calling')
@@ -92,7 +92,7 @@ const Home = () => {
             console.log(data.result.data['result'])
             await setDoc(userDocRef, {
                 uploads: arrayUnion({
-                    imageURL: imageurl,
+                    imageURL: downloadURL,
                     result: data.result.data['result'],
                     timestamp: Timestamp.now(),
                 }),
@@ -118,7 +118,7 @@ const Home = () => {
                             </div>
                         </label>
                         }
-                        {preview && <button className="upload" onClick={handleUpload}>
+                        {preview && <button className="upload" onClick={uploadFile}>
                             Predict 🔍
                         </button>
                         }
