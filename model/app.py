@@ -5,8 +5,6 @@ from keras.preprocessing import image
 import numpy as np
 from tensorflow.keras.models import load_model
 from keras.applications.resnet50 import preprocess_input
-from shutil import copyfile
-from werkzeug.utils import secure_filename
 
 
 app = Flask(__name__)
@@ -38,16 +36,9 @@ def upload_file():
 
     if file and allowed_file(file.filename):
         filename = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
-        storagefilename = os.path.join(
-            "../interface\\src\\uploads",
-            file.filename,
-        )
-
         file.save(filename)
-        copyfile(filename, storagefilename)
 
         print(f"Image received and saved: {filename}")
-        print(f"Image received and saved: {storagefilename}")
         img = image.load_img(filename, target_size=(180, 180))
         x = image.img_to_array(img)
         x = preprocess_input(x)

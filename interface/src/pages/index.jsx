@@ -5,7 +5,9 @@ import eye from '../assets/raw.png'
 import { useAuth } from '../context';
 import { Navigate } from 'react-router-dom';
 import { setDoc, doc, serverTimestamp, arrayUnion, Timestamp } from 'firebase/firestore';
-import { db } from "../firebase/firebase";
+import { db, storage } from "../firebase/firebase";
+import { v4 as uuid } from "uuid";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Home = () => {
     const { userLoggedIn } = useAuth()
@@ -18,6 +20,45 @@ const Home = () => {
     const [preview, setPreview] = useState(null);
     const [result, setResult] = useState(null);
 
+    const [imageurl, setImageurl] = useState(null);
+    const [percentage, setPercentage] = useState(null);
+
+    useEffect(() => {
+        const uploadFile = () => {
+            const img_unique_id = uuid();
+            const storageRef = ref(storage, img_unique_id);
+
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on(
+                "state_changed",
+                (snapshot) => {
+                    const progress =
+                        (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + "% done");
+                    setPercentage(progress);
+                    switch (snapshot.state) {
+                        case "paused":
+                            console.log("Upload is paused");
+                            break;
+                        case "running":
+                            console.log("Upload is running");
+                            break;
+                    }
+                },
+                (error) => {
+                    console.log(error);
+                },
+                () => {
+                    getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                        setImageurl(downloadURL);
+                    });
+                }
+            );
+        };
+        file && uploadFile();
+    }, [file]);
+
     useEffect(() => {
         if (file) {
             const objectUrl = URL.createObjectURL(file);
@@ -29,7 +70,9 @@ const Home = () => {
         window.location.reload();
     };
 
-    const handleUpload = async () => {
+    const handleUpload = async (e) => {
+        e.preventDefault();
+
         if (file != null) {
             console.log('calling')
             const imageData = new FormData();
@@ -45,10 +88,11 @@ const Home = () => {
 
             console.log('writing')
             const userDocRef = doc(db, "users", currentUser.email);
-
+            console.log(imageurl)
+            console.log(data.result.data['result'])
             await setDoc(userDocRef, {
                 uploads: arrayUnion({
-                    fileName: file.name,
+                    imageURL: imageurl,
                     result: data.result.data['result'],
                     timestamp: Timestamp.now(),
                 }),
