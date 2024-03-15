@@ -7,10 +7,9 @@ import { useAuth } from '../context'
 const Header = () => {
     const navigate = useNavigate()
     const { currentUser } = useAuth()
+    const { userLoggedIn } = useAuth()
 
-    console.log("xxx")
-    console.log(currentUser)
-    console.log("xxx")
+
     const onLogout = async (e) => {
         e.preventDefault()
         await doSignOut();
@@ -28,7 +27,7 @@ const Header = () => {
                     <h5>History</h5>
                 </li></Link>
 
-                <li onClick={onLogout}>Logout</li>
+                {userLoggedIn && <li onClick={onLogout}>Logout</li>}
             </ul>
         </div>
     )

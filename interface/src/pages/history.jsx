@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { collection, getDoc, getDocs, doc } from 'firebase/firestore';
 import { db } from "../firebase/firebase";
 import { useAuth } from '../context';
+import { Navigate } from 'react-router-dom';
 
 const UploadsPage = () => {
     const [uploads, setUploads] = useState([]);
@@ -31,13 +32,20 @@ const UploadsPage = () => {
 
     return (
         <div className='uploadimages'>
+            {!userLoggedIn && (<Navigate to={'/login'} replace={true} />)}
+
             <h1>Your Uploads</h1>
             <ul>
                 {uploads.map((upload, index) => (
-                    <li key={index}>
+                    <li className='historyli' key={index}>
                         <img src={upload.imageURL} alt="Uploaded Image" />
-                        <strong>Result:</strong> {upload.result}<br />
-                        <strong>Timestamp:</strong> {upload.timestamp && upload.timestamp.toDate().toString()}
+                        <h2>
+                            {upload.result}
+                        </h2>
+
+                        <br />
+
+                        {upload.timestamp && upload.timestamp.toDate().toString()}
                     </li>
                 ))}
             </ul>
