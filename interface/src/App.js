@@ -5,6 +5,8 @@ import Home from "./pages";
 import { AuthProvider } from "./context/";
 import { useRoutes } from "react-router-dom";
 import UploadsPage from "./pages/history";
+import ResetPassword from "./pages/resetpassword";
+import Display from "./pages/display";
 
 function App() {
   const routesArray = [
@@ -27,6 +29,14 @@ function App() {
     {
       path: "/history",
       element: <UploadsPage />,
+    },
+    {
+      path: "/reset",
+      element: <ResetPassword />,
+    },
+    {
+      path: "/display",
+      element: <Display />,
     },
   ];
   let routesElement = useRoutes(routesArray);

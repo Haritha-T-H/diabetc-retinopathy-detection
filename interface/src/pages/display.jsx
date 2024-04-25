@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Navigate, Link } from 'react-router-dom'
 import { doSignInWithEmailAndPassword } from '../firebase/auth'
-import { useAuth } from '../context/'
+import { useAuth } from '../context'
 import '../home.css'
 import abstract from '../assets/abstract.png'
 import machine from '../assets/machine.jpg'
 
-const Login = () => {
+const Display = () => {
     const { userLoggedIn } = useAuth()
 
     const [email, setEmail] = useState('')
@@ -29,7 +29,7 @@ const Login = () => {
     return (
 
         <div >
-            {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
+            {!userLoggedIn && (<Navigate to={'/login'} replace={true} />)}
             <div class="container">
                 <div class="left leftlogin">
                     <h1 className="drd">Diabetic Retinopathy <strong className="detec">Detection</strong></h1>
@@ -67,4 +67,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Display

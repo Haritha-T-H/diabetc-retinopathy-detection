@@ -3,6 +3,11 @@ import { collection, getDoc, getDocs, doc } from 'firebase/firestore';
 import { db } from "../firebase/firebase";
 import { useAuth } from '../context';
 import { Navigate } from 'react-router-dom';
+import '../home.css'
+import abstract from '../assets/abstract.png'
+import moment from 'moment';
+import mhistory from '../assets/mhistory.png';
+
 
 const UploadsPage = () => {
     const [uploads, setUploads] = useState([]);
@@ -34,18 +39,28 @@ const UploadsPage = () => {
         <div className='uploadimages'>
             {!userLoggedIn && (<Navigate to={'/login'} replace={true} />)}
 
-            <h1>Your Uploads</h1>
-            <ul>
+            <img className='mhistory' src={mhistory} alt="" srcset="" />
+
+            <ul className='historydata'>
                 {uploads.map((upload, index) => (
                     <li className='historyli' key={index}>
-                        <img src={upload.imageURL} alt="Uploaded Image" />
-                        <h2>
-                            {upload.result}
-                        </h2>
 
-                        <br />
+                        <div className='box1'>
+                            Name: {upload.patientName} <br /><br />
+                            Age: {upload.patientAge}<br /><br />
+                            Blood: {upload.blood}<br /><br />
+                            Additional info: {upload.additionalInfo}<br /><br />
+                            Result:  {upload.result}<br /><br />
+                            Time:                        {upload.timestamp && moment(upload.timestamp.toDate()).format('dddd DD MMMM YYYY hh:mm A')}
 
-                        {upload.timestamp && upload.timestamp.toDate().toString()}
+                        </div>
+                        <div className='box2'>
+                            <img src={upload.imageURL} alt="Uploaded Image" />
+
+                        </div>
+
+
+
                     </li>
                 ))}
             </ul>

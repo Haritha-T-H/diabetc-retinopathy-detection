@@ -1,86 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+25&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+    font-family: "Noto Sans", sans-serif;
 
-.pagecontainer {
-    height: 100vh;
-    width: 100%;
-}
-
-body {
-    height: 100vh;
-    width: 100%;
-    border: 15px black solid;
-    overflow: hidden;
-    background-color: #e0e0e0;
-}
-
-
-.bgcontainer {
-    height: 100vh;
-    width: 98%;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-
-}
-
-.bgcontainer img {
-    width: 100%;
-
-}
-
-.image {
-    position: absolute;
-    width: 100%;
-    bottom: 263px;
-}
-
-.formcontainer {
-    width: 100%;
-    margin: 0;
-    background: linear-gradient(90deg, rgba(241, 241, 241, 1)0%, rgba(223, 223, 223, 1) 50%, rgba(241, 241, 241, 1) 100%);
-    height: 100vh;
-
-}
-
-form {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding-top: 30px;
-}
-
-div.mb-3 {
-    width: 20%;
-}
-
-.black {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 30vh;
-    background-color: black;
-}
-
-.btn {
-    background-color: black;
-    border: 2px black solid;
-    border-radius: 30px;
-    padding: 10px;
-    height: 50px;
-    margin: 5px;
-}
-
-.elements {
-    width: 30%;
 }
 
 
 .navcontainer {
-    height: 5vh;
+    background-color: #FFF7FC;
+    height: 8vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -99,37 +31,6 @@ ul {
     flex: 1;
     justify-content: space-between;
     font-weight: bold;
-    cursor: pointer;
-}
-
-
-#img-view,
-.container img {
-    height: 100%;
-    width: 60%;
-    border-radius: 100%;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px dashed grey;
-}
-
-.container img {
-    height: 500px;
-    animation: fadeInRight 1s ease-in-out forwards;
-    animation-delay: 0.1s;
-}
-
-#dropArea {
-    position: absolute;
-    z-index: 999;
-    cursor: pointer;
-    width: 49%;
-    height: 54%;
-    text-align: center;
-    left: 35%;
-    top: 18%;
 }
 
 .formcontainer img {
@@ -141,54 +42,239 @@ ul {
     border-radius: 100%;
     text-align: center;
     left: 35%;
-    top: 15%;
+    bottom: 20%;
 }
 
 input[type=file] {
     display: none;
 }
 
-button.upload {
-    position: absolute;
-    bottom: 15%;
-    z-index: 999;
-    left: 37%;
-    border: none;
-    padding: 20px;
-    border-radius: 20px;
-    cursor: pointer;
+
+.container {
+    height: 92vh;
+    width: 100vw;
+    display: flex;
+    /* background-color: #aab6f9; */
+    background-image: linear-gradient(to right, #637A9F, #C9D7DD);
+
+    justify-content: center;
+    align-items: center;
+    margin-right: 50px;
 }
 
-button.another {
-    position: absolute;
-    bottom: 15%;
-    z-index: 999;
-    left: 57%;
-    border: none;
-    padding: 20px;
-    border-radius: 20px;
-    cursor: pointer;
+.left,
+.right {
+    flex: 1;
 }
 
+.left {
+    display: flex;
+    height: 70vh;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 20vw;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-evenly;
+
+}
+
+.right {
+    height: 92vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dropArea {
+    cursor: pointer;
+    width: 500px;
+    text-align: center;
+}
+
+#img-view,
+.container img {
+    height: 500px;
+    border-radius: 20px;
+    /* padding: 20px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgb(62, 62, 62);
+    margin-right: 50px;
+}
+
+.login img {
+    border: none;
+    border-radius: 10px;
+}
+
+
+#abstract {
+    position: absolute;
+    border: none;
+    height: 100px;
+    top: 70vh;
+}
+
+input.form-control,
+button {
+    height: 6vh;
+    width: 80%;
+    border-radius: 10px;
+    border: none;
+}
 
 a {
-    text-decoration: none;
     color: black;
 }
 
-a:hover {
-    text-decoration: none;
-    color: black;
+
+.historydata {
+    overflow: scroll;
+    height: 90vh;
+    flex-direction: column;
+    overflow-x: hidden;
 }
+
 
 
 .historyli {
+    margin: 20px;
+    margin: 50px;
+
     width: 100%;
+    padding: 10px;
+    padding-left: 200px;
+    padding-right: 200px;
     display: flex;
-    justify-content: space-evenly;
+    border-radius: 10px;
+    justify-content: space-around;
     align-items: center;
 }
 
 .historyli img {
     border-radius: 10px;
+}
+
+.uploadimages {
+    background-image: linear-gradient(to right, #637A9F, #C9D7DD);
+}
+
+.box1 {
+    background-color: #B7C9F2;
+    width: 40vw;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.box2 {
+    width: 15vw;
+    background-color: #637A9F;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.genderpick {
+    width: 80%;
+    height: 6vh;
+}
+
+.dblue {
+    color: #2353fa;
+    font-size: 20px;
+}
+
+.blue {
+    color: #26c9ff;
+    font-size: 20px;
+
+}
+
+h1.drd,
+strong.detec {
+    font-weight: bold;
+    font-size: 60px;
+}
+
+button.steps {
+    font-weight: bold;
+    cursor: default;
+}
+
+img.eyeimg {
+    margin-left: 5px;
+    height: 5vh;
+}
+
+.loginleft {
+    height: 45vh;
+    padding-left: 15vw;
+}
+
+a {
+    cursor: pointer;
+}
+
+.logout {
+    cursor: pointer;
+}
+
+::placeholder {
+    color: black;
+    font-weight: bold;
+}
+
+
+.leftlogin {
+    padding-left: 10vw;
+}
+
+.btn {
+    color: black;
+    font-weight: bold;
+    border: none;
+}
+
+.btn:hover {
+    color: black;
+    font-weight: bold;
+    border: none;
+}
+
+.btn:active {
+    border: none;
+}
+
+.btn-success,
+.btn {
+    background-color: #6962AD;
+    border-color: #6962AD;
+}
+
+.btn-success:hover {
+    background-color: #6962AD;
+    border-color: #6962AD;
+}
+
+.btn-success:active,
+.btn:active {
+    background-color: #6962AD;
+    border-color: #6962AD;
+
+}
+
+.ResetPassword img {
+    border: none;
+}
+
+.mhistory {
+    position: absolute;
+    bottom: 10vh;
+    right: 5vh;
+    height: 25vh;
 }

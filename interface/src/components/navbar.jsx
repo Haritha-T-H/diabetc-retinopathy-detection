@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import '../home.css'
 import { doSignOut } from '../firebase/auth'
 import { useAuth } from '../context'
+import eye from '../assets/eye.png'
 
 const Header = () => {
     const navigate = useNavigate()
@@ -17,17 +18,17 @@ const Header = () => {
 
     return (
         <div className='navcontainer'>
-            <div className="logo">Diabetic Retinopathy Detection</div>
+            <div className="logo"><strong className='dblue'> <img className='eyeimg' src={eye} alt="" srcset="" />  Eye</strong><strong className='blue'> Center</strong></div>
             <ul>
-                <Link to={'/'}>  <li>
-                    <h5>Home</h5>
-                </li></Link>
+                {userLoggedIn && <Link to={'/'}>  <li>
+                    <h5><strong>Home</strong></h5>
+                </li></Link>}
 
-                <Link to={'/history'}>  <li>
-                    <h5>History</h5>
-                </li></Link>
+                {userLoggedIn && <Link to={'/history'}>  <li>
+                    <h5><strong>Previous Predictions</strong></h5>
+                </li></Link>}
 
-                {userLoggedIn && <li onClick={onLogout}>Logout</li>}
+                {userLoggedIn && <h5 onClick={onLogout}><strong className='logout'>Logout</strong></h5>}
             </ul>
         </div>
     )

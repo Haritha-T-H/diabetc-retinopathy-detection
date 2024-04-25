@@ -3,74 +3,113 @@ import { Navigate, Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/'
 import { doCreateUserWithEmailAndPassword } from '../firebase/auth'
 import '../home.css'
+import { db, storage } from "../firebase/firebase";
 import eye from '../assets/raw.png'
+import { setDoc, doc, serverTimestamp, arrayUnion, Timestamp } from 'firebase/firestore';
+import abstract from '../assets/abstract.png'
+import machine from '../assets/machine.jpg'
+
 const Register = () => {
 
     const navigate = useNavigate()
+    const { currentUser } = useAuth()
+
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [cpassword, setCPassword] = useState('')
     const [name, setName] = useState('')
-    const [confirmPassword, setconfirmPassword] = useState('')
-    const [isRegistering, setIsRegistering] = useState(false)
-    const [errorMessage, setErrorMessage] = useState('')
-
+    const [designation, setDesignation] = useState('')
+    const [phone, setPhone] = useState('')
+    const [laboratory, setlaboratory] = useState('')
     const { userLoggedIn } = useAuth()
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
+    const handleToggleVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+    };
     const onSubmit = async (e) => {
         e.preventDefault()
-        if (!isRegistering) {
-            setIsRegistering(true)
-            await doCreateUserWithEmailAndPassword(email, password)
+        if (password == cpassword) {
+            if (phone.length != 10) {
+                try {
+                    await doCreateUserWithEmailAndPassword(email, password)
+                    const userDocRef = doc(db, "users", email);
+                    await setDoc(userDocRef, {
+                        laboratory: laboratory,
+                        designation: designation,
+                        name: name,
+                        phone: phone,
+                    },);
+                    alert("Sign up successful")
+                } catch (r) {
+                    alert(r)
+                }
+            } else {
+                alert("Phone number should contain 10 digits")
+            }
+        } else {
+            alert("password doesnot match")
         }
+
     }
 
     return (
         <>
             {userLoggedIn && (<Navigate to={'/home'} replace={true} />)}
 
-            <div className='pagecontainer'>
-                <div className="bgcontainer">
-                    <div className="box">
-                        <div className="formcontainer">
-                            <form onSubmit={onSubmit}>
-                                <div className="mb-3">
-                                    <input placeholder='email' type="email" className="form-control" id="email" name="email" value={email} onChange={(e) => { setEmail(e.target.value) }}
-                                        required />
-                                </div>
+            <div class="container">
+                <div class="left leftlogin">
 
-                                <div className="mb-3">
-                                    <input placeholder='username' type="text" className="form-control" id="email" name="email" value={name} onChange={(e) => { setName(e.target.value) }}
-                                        required />
-                                </div>
+                    <form onSubmit={onSubmit}>
+                        <input placeholder='email' type="email" className="form-control" id="email" name="email" value={email} onChange={(e) => { setEmail(e.target.value) }}
+                            required />
+                        <br />
 
-                                <div className="mb-3">
+                        <input placeholder='laboratory' type="laboratory" className="form-control" id="laboratory" name="laboratory" value={laboratory} onChange={(e) => { setlaboratory(e.target.value) }}
+                            required />
+                        <br />
 
-                                    <input placeholder='password' type="password" className="form-control" id="password" onChange={(e) => { setPassword(e.target.value) }}
-                                        name="password" required />
-                                </div>
+                        <input placeholder='Name' type="text" className="form-control" id="name" name="mame" value={name} onChange={(e) => { setName(e.target.value) }}
+                            required />
+                        <br />
+                        <input placeholder='Designation' type="text" className="form-control" id="designation" name="designation" value={designation} onChange={(e) => { setDesignation(e.target.value) }}
+                            required />
+                        <br />
 
-                                <div className='links'>
-                                    <button type="submit" className="btn btn-primary">
-                                        signup
-                                    </button>
-                                    <Link to={'/login'}>   <button className="btn btn-success">
-                                        Already have an account?😁
-                                    </button></Link>
+                        <input placeholder='password (min 6 characters)' type="password" className="form-control" id="password" onChange={(e) => { setPassword(e.target.value) }}
+                            name="password" required />
+                        <br />
+                        <input placeholder='confirm password' type="password" className="form-control" id="password" onChange={(e) => { setCPassword(e.target.value) }}
+                            name="password" required data-toggle="password"
+                        />
+                        <br />
+                        <input placeholder='Phone number' type="text" className="form-control" id="phone" onChange={(e) => { setPhone(e.target.value) }}
+                            name="password" required />
+                        <br />
 
-                                </div>
-                            </form>
-                        </div>
+                        <button className="btn" type='submit'>
+                            Sign up
+                        </button>
+                    </form>
+                    <br />
 
-                    </div>
-                    <div className="image">
-                        <img src={eye} alt="" />
-                    </div>
-                    <div className="black"></div>
+
+
+                    <Link to={'/login'}>   <button className="btn">
+                        Already have an account?
+                    </button></Link>
 
                 </div>
+                <img src={abstract} id="abstract" alt="" />
+                <div class="right login">
+                    <img src={machine} id="machine" alt="" />
 
+                </div>
             </div>
+
+
+
         </>
     )
 }

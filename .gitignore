@@ -16,3 +16,4 @@ model/resnet50_image_classifier.h5
 model/venv/
 model/__pycache__/
 model/uploads/*
+dataset
